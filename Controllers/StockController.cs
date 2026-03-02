@@ -1,4 +1,5 @@
 ﻿using finshark.Data;
+using finshark.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finshark.Controllers
@@ -16,7 +17,8 @@ namespace finshark.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stocks = _context.Stocks.ToList(); // ToLIst is needed to avoid deferred execution
+            var stocks = _context.Stocks.ToList()
+                .Select(s => s.ToStockDto()); // ToList is needed to avoid deferred execution
 
             return Ok(stocks);
         }
@@ -31,7 +33,7 @@ namespace finshark.Controllers
                 return NotFound();
             }
 
-            return Ok(stock);
+            return Ok(stock.ToStockDto());
         }
     }
 }
