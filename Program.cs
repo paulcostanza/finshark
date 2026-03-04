@@ -4,6 +4,7 @@ using finshark.Data;
 using finshark.Interfaces;
 using finshark.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,11 @@ builder.Services.AddControllers(); // adds controllers to the application, allow
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// this is needed to avoid circular reference issues when serializing our models to JSON, especially when we have navigation properties that reference each other (e.g., Stock has Comments, and Comment has a reference back to Stock)
+builder.Services.AddControllers().AddNewtonsoftJson(options => {
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // this is needed to avoid circular reference issues when serializing our models to JSON, especially when we have navigation properties that reference each other (e.g., Stock has Comments, and Comment has a reference back to Stock)
+});
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
