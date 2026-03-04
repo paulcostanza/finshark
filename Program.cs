@@ -1,6 +1,8 @@
 // builder: controlls dependency injection, provides services, acts like a module from JS
 
 using finshark.Data;
+using finshark.Interfaces;
+using finshark.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); // not built yet
 });
+
+builder.Services.AddScoped<IStockRepository, StockRepository>(); // adds the stock repository to the dependency injection container, allows us to use the stock repository in our controllers, etc.
 
 var app = builder.Build();
 
