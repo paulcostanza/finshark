@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 });
 
 builder.Services.AddScoped<IStockRepository, StockRepository>(); // adds the stock repository to the dependency injection container, allows us to use the stock repository in our controllers, etc.
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
 
