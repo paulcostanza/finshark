@@ -20,15 +20,23 @@ namespace finshark.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            // MocelState comes from ControllerBase and is used to validate the model state of the request.
+            // If the model state is invalid, we return a bad request with the model state errors.
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comments = await _commentRepo.GetAllSync();
             var commentDto = comments.Select(c => c.ToCommentDto());
 
             return Ok(commentDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")] // :int is a data validation restraint for the URL, basically a form of type checking
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _commentRepo.GetByIdAsync(id);
 
             if (comment == null)
@@ -40,9 +48,12 @@ namespace finshark.Controllers
         }
 
         // have to have the comment attached to a stock, so we need the stock id in the route
-        [HttpPost("{stockId}")]
+        [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto commentDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if (!await _stockRepo.StockExists(stockId))
             {
                 return BadRequest("Stock does not exist");
@@ -53,8 +64,10 @@ namespace finshark.Controllers
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }
 
+        // add put??
+
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var commentModel = await _commentRepo.DeleteAsync(id);

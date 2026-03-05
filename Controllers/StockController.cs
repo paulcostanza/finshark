@@ -22,6 +22,9 @@ namespace finshark.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var stocks = await _stockRepo.GetAllAsync();
 
             var stockDto = stocks.Select(s => s.ToStockDto()); // ToList is needed to avoid deferred execution
@@ -29,9 +32,12 @@ namespace finshark.Controllers
             return Ok(stocks);
         }
 
-        [HttpGet("{id}")] // model binding - we want to bind the id from the route to our parameter
+        [HttpGet("{id:int}")] // model binding - we want to bind the id from the route to our parameter
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var stock = await _stockRepo.GetByIdAsync(id);
 
             if (stock == null)
@@ -45,6 +51,9 @@ namespace finshark.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var stockModel = stockDto.ToStockFromCreateDto();
             await _stockRepo.CreateAsync(stockModel);
 
@@ -52,9 +61,12 @@ namespace finshark.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var stockModel = await _stockRepo.UpdateAsync(id, updateDto);
 
             if (stockModel == null)
@@ -66,9 +78,12 @@ namespace finshark.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var stockModel = await _stockRepo.DeleteAsync(id);
 
             if (stockModel == null)

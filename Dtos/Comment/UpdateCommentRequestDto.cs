@@ -2,9 +2,8 @@
 
 namespace finshark.Dtos.Comment
 {
-    public class CreateCommentDto
+    public class UpdateCommentRequestDto
     {
-        // data validation annotations
         [Required]
         [MinLength(5, ErrorMessage = "Title must be at least 5 characters")]
         [MaxLength(280, ErrorMessage = "Title cannot be more than 280 characters")]
