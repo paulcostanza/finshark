@@ -4,6 +4,7 @@ using finshark.Dtos.Stock;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using finshark.Interfaces;
+using finshark.Helpers;
 
 namespace finshark.Controllers
 {
@@ -20,12 +21,12 @@ namespace finshark.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var stocks = await _stockRepo.GetAllAsync();
+            var stocks = await _stockRepo.GetAllAsync(query);
 
             var stockDto = stocks.Select(s => s.ToStockDto()); // ToList is needed to avoid deferred execution
 
