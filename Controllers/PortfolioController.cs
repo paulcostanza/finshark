@@ -31,5 +31,35 @@ namespace finshark.Controllers
             var userPortfolio = await _portfolioRepo.GetUserPortfolio(user);
             return Ok(userPortfolio);
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddPortfolio(string symbol)
+        {
+            var username = User.GetUsername();
+            var user = await _userManager.FindByNameAsync(username);
+            var stock = await _stockRepo.GetBySymbolAsync(symbol);
+
+            if (stock == null)
+                return BadRequest("Stock not found");
+
+            var userPortfolio = await _portfolioRepo.GetUserPortfolio(user);
+
+            if (userPortfolio.Any(equals => equals.Symbol.ToLower() == symbol.ToLower()))
+                return BadRequest("Stock is already in portfolio");
+
+            var portfolioModel = new Portfolio
+            {
+                UserId = user.Id,
+                StockId = stock.Id
+            };
+
+            await _portfolioRepo.CreateAsync(portfolioModel);
+
+            if (portfolioModel == null)
+                return StatusCode(500, "Could not create");
+
+            return Created();
+        }
     }
 }
