@@ -51,13 +51,13 @@ namespace finshark.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "befb56fb-95a4-4b88-805b-8e494dd98ffd",
+                            Id = "4c47533d-017b-4d81-8d17-0f54e1e096db",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "6e65b59f-a9e1-4f28-be57-bd88bfc3ebb6",
+                            Id = "ab645895-ef90-42c4-887b-46a0199e1cea",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -196,6 +196,21 @@ namespace finshark.Migrations
                     b.HasIndex("StockId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("finshark.Models.Portfolio", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("finshark.Models.Stock", b =>
@@ -361,9 +376,35 @@ namespace finshark.Migrations
                     b.Navigation("Stock");
                 });
 
+            modelBuilder.Entity("finshark.Models.Portfolio", b =>
+                {
+                    b.HasOne("finshark.Models.Stock", "Stock")
+                        .WithMany("Portfolio")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("finshark.Models.User", "User")
+                        .WithMany("Portfolio")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stock");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("finshark.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Portfolio");
+                });
+
+            modelBuilder.Entity("finshark.Models.User", b =>
+                {
+                    b.Navigation("Portfolio");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,9 +15,22 @@ namespace finshark.Data
         public DbSet<Stock> Stocks { get; set; } // watch out for deferred execution
 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Portfolio>(x => x.HasKey(p => new { p.UserId, p.StockId }));
+
+            builder.Entity<Portfolio>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Portfolio)
+                .HasForeignKey(p => p.UserId);
+
+            builder.Entity<Portfolio>()
+               .HasOne(p => p.Stock)
+               .WithMany(u => u.Portfolio)
+               .HasForeignKey(p => p.StockId);
 
             List<IdentityRole> roles = new List<IdentityRole>
             {
