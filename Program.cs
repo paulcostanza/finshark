@@ -113,6 +113,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials() // this is needed to allow cross-origin requests from the frontend, which is running on a different port (e.g., 3000) than the backend (e.g., 5000
+                        // .WithOrigins("https://localhost:44351") // this is needed to allow cross-origin requests from the frontend, which is running on a different port (e.g., 3000) than the backend (e.g., 5000
+    .SetIsOriginAllowed(orign => true));
+
 app.UseAuthentication();
 
 app.UseAuthorization();

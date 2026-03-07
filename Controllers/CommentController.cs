@@ -1,8 +1,10 @@
 ﻿using finshark.Dtos.Comment;
 using finshark.Extensions;
+using finshark.Helpers;
 using finshark.Interfaces;
 using finshark.Mappers;
 using finshark.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,14 +29,15 @@ namespace finshark.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize]
+        public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
             // MocelState comes from ControllerBase and is used to validate the model state of the request.
             // If the model state is invalid, we return a bad request with the model state errors.
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var comments = await _commentRepo.GetAllSync();
+            var comments = await _commentRepo.GetAllSync(queryObject);
             var commentDto = comments.Select(c => c.ToCommentDto());
 
             return Ok(commentDto);

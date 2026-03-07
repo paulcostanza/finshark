@@ -1,4 +1,5 @@
 ﻿using finshark.Data;
+using finshark.Helpers;
 using finshark.Interfaces;
 using finshark.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,17 @@ namespace finshark.Repository
             return commentModel;
         }
 
-        public async Task<List<Comment>> GetAllSync()
+        public async Task<List<Comment>> GetAllSync(CommentQueryObject queryObject)
         {
-            return await _context.Comments.Include(u => u.User).ToListAsync();
+            var comments = _context.Comments.Include(u => u.User).AsQueryable();
+                
+            if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+                comments = comments.Where(s => s.Stock.Symbol == queryObject.Symbol);
+            
+            if (queryObject.IsDecsending)
+                comments = comments.OrderByDescending(c => c.CreatedOn);
+            
+            return await comments.ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
