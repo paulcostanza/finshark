@@ -13,6 +13,7 @@ namespace finshark.Mappers
                 Title = commentModel.Title,
                 Content = commentModel.Content,
                 CreatedOn = commentModel.CreatedOn,
+                CreatedBy = commentModel.User.UserName,
                 StockId = commentModel.StockId
             };
         }

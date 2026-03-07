@@ -1,6 +1,9 @@
 ﻿using finshark.Dtos.Comment;
+using finshark.Extensions;
 using finshark.Interfaces;
 using finshark.Mappers;
+using finshark.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finshark.Controllers
@@ -11,10 +14,12 @@ namespace finshark.Controllers
     {
         private readonly ICommentRepository _commentRepo;
         private readonly IStockRepository _stockRepo;
-        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
+        private readonly UserManager<User> _userManager;
+        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo, UserManager<User> userManager)
         {
             _commentRepo = commentRepo;
             _stockRepo = stockRepo;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -58,8 +63,12 @@ namespace finshark.Controllers
             {
                 return BadRequest("Stock does not exist");
             }
+
+            var username = User.GetUsername();
+            var user = await _userManager.FindByNameAsync(username);
             
             var commentModel = commentDto.ToCommentFromCreate(stockId);
+            commentModel.UserId = user.Id;
             await _commentRepo.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }

@@ -30,7 +30,7 @@ namespace finshark.Controllers
 
             var stocks = await _stockRepo.GetAllAsync(query);
 
-            var stockDto = stocks.Select(s => s.ToStockDto()); // ToList is needed to avoid deferred execution
+            var stockDto = stocks.Select(s => s.ToStockDto()).ToList(); // ToList is needed to avoid deferred execution
 
             return Ok(stocks);
         }

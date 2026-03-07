@@ -23,12 +23,12 @@ namespace finshark.Repository
 
         public async Task<List<Comment>> GetAllSync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments.Include(u => u.User).ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
         {
-            return await _context.Comments.FindAsync(id);
+            return await _context.Comments.Include(u => u.User).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Comment?> DeleteAsync(int id)
