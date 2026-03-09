@@ -1,11 +1,11 @@
-import React, { type SyntheticEvent } from 'react'
+import { type SyntheticEvent } from 'react'
 
 interface Props {
     onPortfolioCreate: (e: SyntheticEvent) => void;
     symbol: string;
 }
 
-const onPortfolioCreate = () => { }
+// const onPortfolioCreate = () => { }
 
 const AddPortfolio = ({ onPortfolioCreate, symbol }: Props) => {
     return (
