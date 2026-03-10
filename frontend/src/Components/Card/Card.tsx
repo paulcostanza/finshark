@@ -20,7 +20,7 @@ const Card: React.FC<Props> = ({ id, searchResults, onPortfolioCreate }: Props):
         >
             <img src={SharkBro} alt='Fin gets all the girls cause he has a ton of fat cash' />
             <Link
-                to={`/company/${searchResults.symbol}/company-profile`}
+                to={`/company/${searchResults.symbol}`}
                 className="font-bold text-center text-veryDarkViolet md:text-left"
             >
                 {searchResults.name} ({searchResults.symbol})
