@@ -3,6 +3,7 @@ import SharkBro from '../../assets/shark-bro.png'
 import './Card.css'
 import type { CompanySearch } from '../../company';
 import AddPortfolio from '../Portfolio/AddPortfolio/AddPortfolio';
+import { Link } from 'react-router-dom';
 
 interface Props {
     id: string;
@@ -18,12 +19,12 @@ const Card: React.FC<Props> = ({ id, searchResults, onPortfolioCreate }: Props):
             id={id}
         >
             <img src={SharkBro} alt='Fin gets all the girls cause he has a ton of fat cash' />
-            {/* <Link
-                to={`/company/${searchResult.symbol}/company-profile`}
+            <Link
+                to={`/company/${searchResults.symbol}/company-profile`}
                 className="font-bold text-center text-veryDarkViolet md:text-left"
             >
-                {searchResult.name} ({searchResult.symbol})
-            </Link> */}
+                {searchResults.name} ({searchResults.symbol})
+            </Link>
             <div className="details">
                 <h2>{searchResults.name} - {searchResults.symbol}</h2>
                 <p>${searchResults.currency}</p>

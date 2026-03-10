@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Logo from './logo.png'
 
 interface Props { }
@@ -7,22 +8,28 @@ const Navbar = (props: Props) => {
         <nav className="relative container mx-auto p-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-20">
-                    <img src={Logo} alt='logo header for website of Finny showing off the goods' />
-                    <h2>Swimming in that money</h2>
-                    <div>
-                        <a>Dashboard</a>
-                    </div>
-                    {/* <Link to="/">
-                        <img src={logo} alt="" />
+                    <Link to="/">
+                        <img src={Logo} alt='logo header for website of Finny showing off the goods' style={{ maxWidth: '300px' }} />
                     </Link>
-                    <div className="hidden font-bold lg:flex">
+                    <div><h2>Swimming in that money</h2></div>
+                    <div className=" font-bold lg:flex">
                         <Link to="/search" className="text-black hover:text-darkBlue">
                             Search
                         </Link>
-                    </div> */}
+                    </div>
 
-                    <img src={Logo} alt='' />
-                    <div className='hidden font-bold lg:flex'>Search</div>
+
+                </div>
+                <div className=" lg:flex items-center space-x-6 text-back">
+                    <Link to="/login" className="hover:text-darkBlue">
+                        Login
+                    </Link>
+                    <Link
+                        to="/register"
+                        className="px-8 py-3 font-bold rounded text-black bg-lightGreen hover:opacity-70"
+                    >
+                        Signup
+                    </Link>
                 </div>
                 {/* {isLoggedIn() ? (
                     <div className="hidden lg:flex items-center space-x-6 text-back">

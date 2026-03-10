@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import HeroPic from './hero.png'
 
 interface Props { }
@@ -15,12 +16,12 @@ const Hero = (props: Props) => {
                         news.
                     </p>
                     <div className="mx-auto lg:mx-0">
-                        {/* <Link
+                        <Link
                             to="/search"
                             className="py-5 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70"
                         >
                             Get Started
-                        </Link> */}
+                        </Link>
                         <div className="py-5 px-10 text-2xl font-bold text-white bg-lightGreen rounded lg:py-4 hover:opacity-70">Get Started</div>
                     </div>
                 </div>
