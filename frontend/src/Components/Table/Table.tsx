@@ -13,7 +13,7 @@ const configs = [
         render: (company: Company) => company.acceptedDate
     },
     {
-        lable: "Cost of Revenue",
+        label: "Cost of Revenue",
         render: (company: Company) => company.costOfRevenue
     }
 ]
