@@ -25,12 +25,19 @@ const CompanyPage = (props: Props) => {
     return (
         <>
             {company ? (
-                <div className="w-full relative flex">
+                <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
                     <Sidebar />
                     <CompanyDashboard
                         ticker={ticker!}
                     >
-                        <Tile title='company name' subTitle='fart' />
+                        <Tile title='Company name' subTitle={company.companyName} />
+                        <Tile title='Price' subTitle={company.price?.toString() ?? "N/A"} />
+                        <Tile title='Sector' subTitle={company.sector} />
+                        {/* Where is DCf?! lol */}
+                        {/* <Tile title='DCF' subTitle={company.dcf?.toString() ?? "N/A"} /> */}
+                        <p className='bg-white shadow rounded text-medium text-gray-900 p-3 mt-1 m-4'>
+                            {company.description}
+                        </p>
                     </CompanyDashboard>
                 </div>
             ) : (
