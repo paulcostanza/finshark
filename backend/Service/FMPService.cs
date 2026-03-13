@@ -10,7 +10,7 @@ namespace finshark.Service
     {
         private HttpClient _httpClient;
         private IConfiguration _config;
-        public FMPService(HttpClient httpClient, IConfiguration config) 
+        public FMPService(HttpClient httpClient, IConfiguration config)
         {
             _httpClient = httpClient;
             _config = config;
@@ -20,12 +20,13 @@ namespace finshark.Service
             try
             {
                 var result = await _httpClient.GetAsync(
-                    $"https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={_config["FMPKey"]}");
+                    $"https://financialmodelingprep.com/stable/profile?symbol={symbol}&apikey={_config["FMPKey"]}");
 
                 if (!result.IsSuccessStatusCode)
                     return null;
 
                 var content = await result.Content.ReadAsStringAsync();
+                Console.WriteLine($"API KEY: {_config["FMPKey"]}");
 
                 var stocks = JsonConvert.DeserializeObject<FMPStock[]>(content);
 
