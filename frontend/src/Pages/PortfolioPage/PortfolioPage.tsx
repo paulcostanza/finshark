@@ -10,8 +10,6 @@ type Props = {}
 
 const PortfolioPage = (props: Props) => {
     const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>([]);
-    const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
-    const [serverError, setServerError] = useState<string>("");
 
     useEffect(() => {
         getPortfolio();
