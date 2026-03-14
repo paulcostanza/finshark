@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+:root {
+
+  /* primary brand */
+  --finshark-blue: #1DA1F2;
+  --finshark-blue-dark: #0B5FA5;
+
+  --finshark-green: #7ED957;
+  --finshark-green-dark: #39B54A;
+
+  /* accent */
+  --finshark-gold: #F4C542;
+
+  /* ui */
+  --finshark-background: #F5F7FA;
+  --finshark-text: #1A1A1A;
+  --finshark-border: #0A2540;
+
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
 .card {
   width: 350px;
   height: 450px;
