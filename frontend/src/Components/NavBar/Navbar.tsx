@@ -5,7 +5,7 @@ import { useAuth } from '../../Context/useAuth';
 interface Props { }
 
 const Navbar = (props: Props) => {
-    const { isLoggedIn, user, logout } = useAuth();
+    const { isLoggedIn, user } = useAuth();
 
     return (
         <nav className="relative container mx-auto mt-10 p-1">
@@ -25,9 +25,12 @@ const Navbar = (props: Props) => {
                             <div>Welcome, {user?.userName}!</div>
 
                             <div className='flex gap-4'>
-                                <a onClick={logout} className='bg-[#0b5fa5] text-white px-4 py-2 rounded'>
-                                    Logout
-                                </a>
+                                {/* <a onClick={logout} className='bg-[#0b5fa5] text-white px-4 py-2 rounded'>
+                                    Portfolio
+                                </a> */}
+
+                                <Link to='/portfolio' className='bg-[#0b5fa5] text-white px-4 py-2 rounded'>
+                                    Portfolio</Link>
 
                                 <Link to="/search" className='bg-[#39b54a] text-white px-4 py-2 rounded'>
                                     Search
