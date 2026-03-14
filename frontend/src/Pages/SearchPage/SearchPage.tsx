@@ -8,12 +8,14 @@ import Search from '../../Components/Search/Search';
 import type { PortfolioGet } from '../../Models/Portfolio';
 import { toast } from 'react-toastify';
 import { portfolioAddAPI, portfolioDeleteAPI, portfolioGetAPI } from '../../Services/PortfolioService';
+import onPortfolioCreate from '../PortfolioPage/PortfolioPage'
 
 interface Props { }
 
 const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
     const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>([]);
+
     const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
     const [serverError, setServerError] = useState<string>("");
 
@@ -21,10 +23,6 @@ const SearchPage = (props: Props) => {
         setSearch(e.target.value);
         console.log(e)
     }
-
-    useEffect(() => {
-        getPortfolio();
-    }, [])
 
     const getPortfolio = () => {
         portfolioGetAPI()
@@ -54,6 +52,7 @@ const SearchPage = (props: Props) => {
         e.preventDefault();
         portfolioAddAPI(e.target[0].value)
             .then((res) => {
+                console.log("Here foo:", res?.status)
                 if (res?.status === 204) {
                     toast.success("Stock added to portfolio!")
                     getPortfolio();
@@ -63,24 +62,11 @@ const SearchPage = (props: Props) => {
                 console.log(e)
             })
     }
-
-    const onPortfolioDelete = (e: any) => {
-        e.preventDefault();
-        portfolioDeleteAPI(e.target[0].value)
-            .then((res) => {
-                if (res?.status === 200) {
-                    toast.success("Stock deleted from portfolio!");
-                    getPortfolio();
-                }
-            }).catch((e) => {
-                toast.warning("Could not create portfolio item!")
-                console.log(e)
-            })
-    }
-
     useEffect(() => {
         console.log(searchResult)
     }, [searchResult])
+
+
     return (
         <div className='App'>
             {/* <Hero /> */}
@@ -89,15 +75,12 @@ const SearchPage = (props: Props) => {
                 search={search}
                 handleSearchChange={handleSearchChange}
             />
-            <ListPortfolio
-                portfolioValues={portfolioValues!}
-                onPortfolioDelete={onPortfolioDelete}
-            />
             {serverError && <h1>{serverError}</h1>}
             <CardList
                 searchResults={searchResult}
                 onPortfolioCreate={onPortfolioCreate}
             />
+
         </div>
     )
 }
