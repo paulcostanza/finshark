@@ -9,11 +9,13 @@ import type { PortfolioGet } from '../../Models/Portfolio';
 import { toast } from 'react-toastify';
 import { portfolioAddAPI, portfolioDeleteAPI, portfolioGetAPI } from '../../Services/PortfolioService';
 import onPortfolioCreate from '../PortfolioPage/PortfolioPage'
+import Spinner from '../../Components/Spinner/Spinner';
 
 interface Props { }
 
 const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>("");
+    const [loading, setLoading] = useState(false);
     const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[] | null>([]);
 
     const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
@@ -38,6 +40,7 @@ const SearchPage = (props: Props) => {
 
     const onSearchSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
+        setLoading(true)
         const result = await searchCompanies(search);
         if (typeof result === "string") {
             setServerError(result);
@@ -45,7 +48,7 @@ const SearchPage = (props: Props) => {
             setSearchResult(result)
         }
 
-        console.log(result)
+        setLoading(false)
     };
 
     const onPortfolioCreate = (e: any) => {
@@ -62,6 +65,7 @@ const SearchPage = (props: Props) => {
                 console.log(e)
             })
     }
+
     useEffect(() => {
         console.log(searchResult)
     }, [searchResult])
@@ -76,10 +80,15 @@ const SearchPage = (props: Props) => {
                 handleSearchChange={handleSearchChange}
             />
             {serverError && <h1>{serverError}</h1>}
-            <CardList
-                searchResults={searchResult}
-                onPortfolioCreate={onPortfolioCreate}
-            />
+            {loading ? (
+                <Spinner />
+            ) : (
+                <CardList
+                    searchResults={searchResult}
+                    onPortfolioCreate={onPortfolioCreate}
+                />
+            )}
+
 
         </div>
     )

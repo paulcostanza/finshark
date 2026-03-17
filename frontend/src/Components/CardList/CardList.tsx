@@ -24,7 +24,7 @@ const CardList: React.FC<Props> = ({ searchResults, onPortfolioCreate }: Props):
                 })
             ) : (
                 <p className='mb-3 mt-3 text-xl font-semibold text-center md:text-xl'>
-                    No results!
+                    Search by stock ticker
                 </p>
             )}
 

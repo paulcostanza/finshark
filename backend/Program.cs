@@ -51,7 +51,8 @@ builder.Services.AddSwaggerGen(option =>
 
 
 // this is needed to avoid circular reference issues when serializing our models to JSON, especially when we have navigation properties that reference each other (e.g., Stock has Comments, and Comment has a reference back to Stock)
-builder.Services.AddControllers().AddNewtonsoftJson(options => {
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // this is needed to avoid circular reference issues when serializing our models to JSON, especially when we have navigation properties that reference each other (e.g., Stock has Comments, and Comment has a reference back to Stock)
 });
 
@@ -105,11 +106,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline -
 // what controlls the actual pipeline of the application, what happens when a request is made to the application
 // where middleware is located, how the application responds to requests, etc.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 
