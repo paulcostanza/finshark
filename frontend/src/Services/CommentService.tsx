@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from "../api/axios";
 import type { CommentGet, CommentPost } from "../Models/Comment";
 import { handleError } from "../Helpers/ErrorHandler";
 
-const api = import.meta.env.VITE_API_URL + "/api/comment/";
+const api = "/api/comment";
 
 export const commentPostAPI = async (title: string, content: string, symbol: string) => {
     try {
-        const data = await axios.post<CommentPost>(api + `${symbol}`, {
+        const data = await axios.post<CommentPost>(`${api}/${symbol}`, {
             title: title,
             content: content,
         })
