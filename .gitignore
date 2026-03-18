@@ -7,3 +7,5 @@ obj/
 *.log
 
 ideas.md
+
+*.env

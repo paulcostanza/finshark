@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaHome } from 'react-icons/fa'
+import { FaBalanceScale, FaDollarSign, FaHome, FaInfoCircle, FaMoneyBillWave } from 'react-icons/fa'
 
 interface Props { }
 
@@ -15,27 +15,33 @@ const Sidebar = (props: Props) => {
                 <div className='flex bg-blue flex-col items-stretch opacity-100 relative mt-4 overflow-y-auto overflow-x-hidden h-auto z-40 items-center'>
                     <div className='md:flex-col md:min-w-full flex flex-col list-none'>
                         <Link
+                            to='company-description'
+                            className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
+                            <FaHome size={30} />
+                            <h6 className='ml-3'>Company Description</h6>
+                        </Link>
+                        <Link
                             to='company-profile'
                             className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
-                            <FaHome />
+                            <FaInfoCircle size={18} />
                             <h6 className='ml-3'>Company Profile</h6>
                         </Link>
                         <Link
                             to='income-statement'
                             className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
-                            <FaHome />
+                            <FaDollarSign size={17} />
                             <h6 className='ml-3'>Income Statement</h6>
                         </Link>
                         <Link
                             to='balance-sheet'
                             className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
-                            <FaHome />
+                            <FaBalanceScale size={20} />
                             <h6 className='ml-3'>Balance Sheet</h6>
                         </Link>
                         <Link
                             to='cashflow-statement'
                             className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
-                            <FaHome />
+                            <FaMoneyBillWave size={30} />
                             <h6 className='ml-3'>Cashflow Statement</h6>
                         </Link>
 
