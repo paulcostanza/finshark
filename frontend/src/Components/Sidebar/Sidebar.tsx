@@ -6,43 +6,41 @@ interface Props { }
 
 const Sidebar = (props: Props) => {
     return (
-        <nav className='block py-4 px-6 top-0 bottom-0 w-64 bg-grey'>
-            <button className="flex items-center justify-center">
-                <i className="fas fa-ellipsis-v"></i>
-            </button>
+        <nav className='fixed top-0 left-0 h-screen w-64 p-4 flex flex-col'>
 
-            <div className='flex-col min-h-full px-0 flex flex-wrap items-center justify-between w-full mx-auto overflow-y-auto overflow-x-hidden'>
-                <div className='flex bg-blue flex-col items-stretch opacity-100 relative mt-4 overflow-y-auto overflow-x-hidden h-auto z-40 items-center'>
-                    <div className='md:flex-col md:min-w-full flex flex-col list-none'>
+            {/* Menu */}
+            <div className='flex flex-row gap-2'>
+                <div className=''>
+                    <div className='flex flex-row gap-2'>
                         <Link
                             to='company-description'
-                            className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
+                            className='flex items-center gap-3 text-gray-400 uppercase font-bold py-3 no-underline hover:text-black'>
                             <FaHome size={30} />
-                            <h6 className='ml-3'>Company Description</h6>
+                            <span>Description</span>
                         </Link>
                         <Link
                             to='company-profile'
-                            className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
+                            className='flex items-center gap-3 text-gray-400 uppercase font-bold py-3 no-underline hover:text-black'>
                             <FaInfoCircle size={18} />
-                            <h6 className='ml-3'>Company Profile</h6>
+                            <span>Company Profile</span>
                         </Link>
                         <Link
                             to='income-statement'
-                            className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
+                            className='flex items-center gap-3 text-gray-400 uppercase font-bold py-3 no-underline hover:text-black'>
                             <FaDollarSign size={17} />
-                            <h6 className='ml-3'>Income Statement</h6>
+                            <span>Income Statement</span>
                         </Link>
                         <Link
                             to='balance-sheet'
-                            className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
+                            className='flex items-center gap-3 text-gray-400 uppercase font-bold py-3 no-underline hover:text-black'>
                             <FaBalanceScale size={20} />
-                            <h6 className='ml-3'>Balance Sheet</h6>
+                            <span>Balance Sheet</span>
                         </Link>
                         <Link
                             to='cashflow-statement'
-                            className='flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt-1 pb-4 no-underline'>
+                            className='flex items-center gap-3 text-gray-400 uppercase font-bold py-3 no-underline hover:text-black'>
                             <FaMoneyBillWave size={30} />
-                            <h6 className='ml-3'>Cashflow Statement</h6>
+                            <span>Cashflow</span>
                         </Link>
 
                     </div>

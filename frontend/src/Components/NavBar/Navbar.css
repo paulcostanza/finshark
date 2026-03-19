@@ -1,0 +1,42 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-and-subtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.welcome-and-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.button {
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.left-button {
+    background-color: #0b5fa5;
+}
+
+.right-button {
+    background-color: #39b54a;
+}
+
+@media (max-width: 882px) {
+
+    .nav,
+    .logo-and-subtitle,
+    .welcome-and-buttons {
+        flex-direction: column;
+    }
+}

@@ -11,7 +11,7 @@ const Footer = (props: Props) => {
         <footer className="bg-[#344d69] mt-20 border-t pt-6 text-center text-sm text-white">
             <div className='flex justify-center'>
                 <img src={Logo} style={{ maxWidth: '100px' }} />
-                <p>Swimming in that money</p>
+                <p>Swimming in that cash</p>
             </div>
 
 
